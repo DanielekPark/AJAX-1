@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href='//fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/main.css">
+  <title>AJAX with JavaScript</title>
+  <script>
+    const xhr = new XMLHttpRequest(); 
+    /*-AJAX requests only work through a web server, you can't preview a local file on your computer and expect your AJAX to work. Local web server needs to be running. Or upload your project files to a webserver and view those files through the web.
+    -For each ajax request you create a new XHR object, for example if you wanted to use AJAX twice on a page to request data for a sidebar, and another to process a form submission. You'll need 2 variables with each with their own XHR object*/
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState === 4){
+        document.querySelector('#ajax').innerHTML = xhr.responseText; 
+      }
+    }; 
+    /*
+    -AJAX comes with its own set of events; create a programing to respond to events
+    -onreadystatechange is an event, that's triggered when a change in an AJAX request(opening a request, sending it, receiving a response)
+    -readyState contains a number including the current stat of the request, '4'; the request is done and the server has sent back a response.
+    -responseText is the information the web server sends back
+    */
+    xhr.open('GET', 'sidebar.html'); //use GET to send a request for data; use POST if you're sending the data.
+    function sendAJAX(){
+      xhr.send();
+      document.querySelector('#load').style.display ='none'; 
+    }
+    /*requests a chunk of html, don't provide the send method with any information; when you need to submit info to the server like user input from a web form you can pass the send method that data */
+  </script>
+</head>
+<body>
+  <div class="grid-container centered">
+    <div class="grid-100">
+      <div class="contained">
+        <div class="grid-100">
+          <div class="heading">
+            <h1>Bring on the AJAX</h1>
+            <button id='load' onclick ="sendAJAX()">Show AJAX Example</button>
+          </div>
+          <div id="ajax">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
